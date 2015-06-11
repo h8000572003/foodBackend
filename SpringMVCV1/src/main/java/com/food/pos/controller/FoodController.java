@@ -2,6 +2,7 @@ package com.food.pos.controller;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,8 +15,14 @@ import com.mkyong.common.model.Status;
 @RequestMapping("/food")
 public class FoodController {
 
+	@Autowired
+	private FoodService foodService;
+
+	private FoodParmer foodParmer = new FoodParmer();
+
 	@RequestMapping(value = "/query", method = RequestMethod.GET)
 	public Foods query() {
+		foodService.getNonBuy(foodParmer);
 		return new Foods();
 	}
 
