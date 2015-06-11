@@ -1,6 +1,5 @@
 package com.mkyong.common.model;
 
-import javax.xml.bind.annotation.XmlRootElement;
 
 public class Status {
 	String resultCode = "";

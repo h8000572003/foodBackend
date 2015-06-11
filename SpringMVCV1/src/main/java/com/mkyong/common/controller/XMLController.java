@@ -42,6 +42,7 @@ public class XMLController {
 	public @ResponseBody Coffee add(HttpServletRequest request) {
 
 		String name = request.getParameter("json");
+		
 
 		Bill bill = new Gson().fromJson(name, Bill.class);
 
