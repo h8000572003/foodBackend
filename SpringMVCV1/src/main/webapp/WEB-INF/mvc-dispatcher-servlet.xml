@@ -14,7 +14,7 @@
         http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.1.xsd
         http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.1.xsd">
 
-	<context:component-scan base-package="com.mkyong.common.controller" />
+	<context:component-scan base-package="com.food.pos" />
 
 	<mvc:annotation-driven />
 
@@ -24,7 +24,7 @@
 			<value>org.h2.Driver</value>
 		</property>
 		<property name="url">
-			<value>jdbc:h2:mem:test;DB_CLOSE_DELAY=-1</value>
+			<value>jdbc:h2:~/test;DB_CLOSE_DELAY=-1</value>
 		</property>
 		<property name="username">
 			<value>sa</value>
@@ -37,7 +37,7 @@
 	<bean id="sessionFactory"
 		class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean">
 		<property name="dataSource" ref="dataSource" />
-		<property name="packagesToScan" value="com.iisi.entity" />
+		<property name="packagesToScan" value="com.food.pos.domain" />
 		<property name="hibernateProperties">
 			<props>
 				<!--<prop key="hibernate.dialect">org.hibernate.dialect.H2Dialect</prop> -->
