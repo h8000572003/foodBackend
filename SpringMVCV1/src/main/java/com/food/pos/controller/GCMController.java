@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.food.pos.domain.GCMDTO;
 import com.food.pos.domain.GCMPo;
 import com.food.pos.service.GCMService;
+import com.food.pos.util.POST2GCM;
 import com.mkyong.common.model.Status;
 
 @Controller
@@ -34,7 +35,7 @@ public class GCMController {
 	public @ResponseBody List<GCMPo> query() {
 
 		try {
-			
+
 			GCMDTO gCMDTO = new GCMDTO();
 
 			return gCMService.queryAll(gCMDTO);
@@ -60,6 +61,18 @@ public class GCMController {
 			LOG.error("e:", e);
 			return Status.fail();
 		}
+
+	}
+
+	@RequestMapping(value = "/send", method = RequestMethod.GET)
+	public @ResponseBody Status send() {
+		GCMDTO gCMDTO = new GCMDTO();
+		List<GCMPo> gcms = gCMService.queryAll(gCMDTO);
+
+		for (GCMPo po : gcms) {
+			POST2GCM.post(po.getId(), "test");
+		}
+		return Status.successful();
 
 	}
 }
