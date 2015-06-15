@@ -1,10 +1,14 @@
 package com.food.pos.domain;
 
 import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
+@Entity
+@Table(name = "Meal")
 public class MealPo {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -73,7 +77,5 @@ public class MealPo {
 	public void setNumber(String number) {
 		this.number = number;
 	}
-	
-	
 
 }
