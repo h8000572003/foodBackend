@@ -1,29 +1,64 @@
 package com.mkyong.common.model;
 
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
-
-
 public class Status {
-	String resultCode = "";
+	private String code = "";
+	private String message = "";
+	private Object content = "";
 
-	public String getResultCode() {
-		return resultCode;
+	public String getCode() {
+		return code;
 	}
+
+	public void setCode(String code) {
+		this.code = code;
+	}
+
+	public String getMessage() {
+		return message;
+	}
+
+	public void setMessage(String message) {
+		this.message = message;
+	}
+
 	
-	public void setResultCode(String resultCode) {
-		this.resultCode = resultCode;
+
+
+	public Object getContent() {
+		return content;
 	}
 
-	public static Status fail() {
-		final Status status = new Status();
-		status.setResultCode("0");
-		return status;
+	public void setContent(Object content) {
+		this.content = content;
 	}
 
-	public static Status successful() {
-		final Status status = new Status();
-		status.setResultCode("1");
-		return status;
+	public void fail() {
+		final Status status = this;
+		status.setCode("001");
+		status.setMessage("未知");
+
+	}
+
+	public void fail(Exception e) {
+		final Status status = this;
+		status.setCode("001");
+		status.setMessage(e.getMessage());
+
+	}
+
+	
+	public void successful() {
+
+		this.successful("作業成功");
+
+		return;
+	}
+
+
+	public void successful(String message) {
+		final Status status = this;
+		status.setCode("000");
+		status.setMessage(message);
+
 	}
 }

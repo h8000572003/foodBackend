@@ -46,6 +46,12 @@ public class GCMController {
 
 	}
 
+	/**
+	 * 註冊通知
+	 * 
+	 * @param id
+	 * @return
+	 */
 	@RequestMapping(value = "/insert", method = RequestMethod.GET)
 	public @ResponseBody Status insert(@RequestParam("id") String id) {
 
@@ -54,12 +60,15 @@ public class GCMController {
 		gCMDTO.setgCMPo(new GCMPo());
 		gCMDTO.getgCMPo().setId(id);
 
+		final Status status = new Status();
 		try {
 			gCMService.insert(gCMDTO);
-			return Status.successful();
+			status.successful();
 		} catch (Exception e) {
 			LOG.error("e:", e);
-			return Status.fail();
+			status.fail();
+		} finally {
+			return status;
 		}
 
 	}
@@ -67,12 +76,20 @@ public class GCMController {
 	@RequestMapping(value = "/send", method = RequestMethod.GET)
 	public @ResponseBody Status send() {
 		GCMDTO gCMDTO = new GCMDTO();
-		List<GCMPo> gcms = gCMService.queryAll(gCMDTO);
+		final Status status = new Status();
+		try {
+			List<GCMPo> gcms = gCMService.queryAll(gCMDTO);
+			for (GCMPo po : gcms) {
+				POST2GCM.post(po.getId(), "test");
+			}
+			status.successful();
+		} catch (Exception e) {
+			status.fail();
+		} finally {
 
-		for (GCMPo po : gcms) {
-			POST2GCM.post(po.getId(), "test");
 		}
-		return Status.successful();
+
+		return status;
 
 	}
 }
