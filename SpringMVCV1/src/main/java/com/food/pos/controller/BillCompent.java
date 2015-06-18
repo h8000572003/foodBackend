@@ -10,5 +10,7 @@ public interface BillCompent {
 	 * 
 	 * @return
 	 */
-	public List<Bill> getTodayUnBuyBill();
+	List<Bill> getTodayUnBuyBill();
+
+	void update2Pay(String txId);
 }

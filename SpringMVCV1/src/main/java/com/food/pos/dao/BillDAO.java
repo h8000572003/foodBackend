@@ -12,4 +12,7 @@ public interface BillDAO extends GenericDAO<BillPo> {
 	 * @return
 	 */
 	public List<BillPo> findTodayUnBuy(String date);
+
+	public List<BillPo> findBillByTxId(String txId);
+
 }

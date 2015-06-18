@@ -41,4 +41,15 @@ public class BillCompentImpl implements BillCompent {
 
 		return bills;
 	}
+
+	@Override
+	public void update2Pay(String txId) {
+		List<BillPo> billPos = billDAO.findBillByTxId(txId);
+		for (BillPo billPo : billPos) {
+			billPo.setIsPaid("Y");
+			billDAO.update(billPo);
+		}
+
+	}
+
 }

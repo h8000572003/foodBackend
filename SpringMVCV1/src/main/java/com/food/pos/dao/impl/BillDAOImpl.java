@@ -33,4 +33,12 @@ public class BillDAOImpl extends BaseDAOHibernate<BillPo> implements BillDAO {
 		return criteria.list();
 
 	}
+
+	public List<BillPo> findBillByTxId(String txid) {
+		Criteria criteria = getSession().createCriteria(BillPo.class);
+
+		criteria.add(Restrictions.eq("txId", txid));
+
+		return criteria.list();
+	}
 }

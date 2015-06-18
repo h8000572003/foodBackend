@@ -6,6 +6,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -30,6 +31,20 @@ public class BillController {
 		try {
 
 			status.setContent(billCompent.getTodayUnBuyBill());
+			status.successful();
+		} catch (Exception e) {
+			LOG.error("e:{}", e);
+			status.fail(e);
+		}
+		return status;
+	}
+
+	@RequestMapping(value = "/update/{txid}/isPay", method = RequestMethod.GET)
+	public @ResponseBody Status update2Pay(@PathVariable String txid) {
+		Status status = new Status();
+		try {
+			billCompent.update2Pay(txid);
+			status.setContent("");
 			status.successful();
 		} catch (Exception e) {
 			LOG.error("e:{}", e);
