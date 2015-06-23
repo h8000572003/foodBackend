@@ -41,4 +41,14 @@ public class BillDAOImpl extends BaseDAOHibernate<BillPo> implements BillDAO {
 
 		return criteria.list();
 	}
+
+	@Override
+	public List<BillPo> findToday(String date) {
+		Criteria criteria = getSession().createCriteria(BillPo.class);
+		criteria.addOrder(Order.asc("txId"));
+
+		criteria.add(Restrictions.eq("orderDate", date));
+
+		return criteria.list();
+	}
 }

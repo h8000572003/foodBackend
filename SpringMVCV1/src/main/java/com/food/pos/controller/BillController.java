@@ -55,13 +55,31 @@ public class BillController {
 		Status status = new Status();
 		try {
 			billCompent.update2Pay(txid);
-			
+
 			GCMDTO gCMDTO = new GCMDTO();
 			List<GCMPo> gcms = gCMService.queryAll(gCMDTO);
 
 			for (GCMPo po : gcms) {
 				POST2GCM.post(po.getId(), "test");
 			}
+
+			status.setContent("");
+			status.successful();
+		} catch (Exception e) {
+			LOG.error("e:{}", e);
+			status.fail(e);
+		}
+		return status;
+	}
+
+	@RequestMapping(value = "/delete/today", method = RequestMethod.GET)
+	public @ResponseBody Status deleteTotal() {
+		Status status = new Status();
+		try {
+			billCompent.deleteTotal();
+
+			
+
 			
 			status.setContent("");
 			status.successful();

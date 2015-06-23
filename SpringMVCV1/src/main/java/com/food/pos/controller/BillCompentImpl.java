@@ -64,4 +64,19 @@ public class BillCompentImpl implements BillCompent {
 
 	}
 
+	@Override
+	@Transactional
+	public void deleteTotal() {
+
+		List<BillPo> bills = billDAO.findToday(AeUtils.getNowTime());
+		for (BillPo po : bills) {
+			List<MealPo> meals = mealPoDAO.findMealsByBillId(po.getTxId());
+			billDAO.delete(po);
+			for (MealPo meal : meals) {
+				mealPoDAO.delete(meal);
+			}
+
+		}
+
+	}
 }

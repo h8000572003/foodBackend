@@ -15,4 +15,6 @@ public interface BillCompent {
 	void update2Pay(String txId);
 
 	void insert(Bill bill);
+
+	void deleteTotal();
 }
