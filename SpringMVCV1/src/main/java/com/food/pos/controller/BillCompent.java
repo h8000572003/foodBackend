@@ -13,4 +13,6 @@ public interface BillCompent {
 	List<Bill> getTodayUnBuyBill();
 
 	void update2Pay(String txId);
+
+	void insert(Bill bill);
 }

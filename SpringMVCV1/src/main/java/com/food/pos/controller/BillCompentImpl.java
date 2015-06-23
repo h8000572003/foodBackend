@@ -6,6 +6,7 @@ import java.util.List;
 import org.omg.CORBA.PRIVATE_MEMBER;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.food.pos.contract.AeUtils;
 import com.food.pos.dao.BillDAO;
@@ -48,6 +49,17 @@ public class BillCompentImpl implements BillCompent {
 		for (BillPo billPo : billPos) {
 			billPo.setIsPaid("Y");
 			billDAO.update(billPo);
+		}
+
+	}
+
+	@Override
+	@Transactional
+	public void insert(Bill bill) {
+
+		billDAO.create(bill.getBill());
+		for (MealPo meal : bill.getMeals()) {
+			billDAO.create(meal);
 		}
 
 	}

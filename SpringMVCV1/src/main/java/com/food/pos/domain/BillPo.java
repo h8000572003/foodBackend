@@ -21,8 +21,8 @@ public class BillPo {
 	@Column(name = "orderTime")
 	private String orderTime;
 
-	@Column(name = "OutOrIn")
-	private String OutOrIn;
+	@Column(name = "outOrIn")
+	private String outOrIn;
 
 	@Column(name = "isPaid")
 	private String isPaid;
@@ -63,12 +63,13 @@ public class BillPo {
 		this.orderTime = orderTime;
 	}
 
+
 	public String getOutOrIn() {
-		return OutOrIn;
+		return outOrIn;
 	}
 
 	public void setOutOrIn(String outOrIn) {
-		OutOrIn = outOrIn;
+		this.outOrIn = outOrIn;
 	}
 
 	public String getIsPaid() {
