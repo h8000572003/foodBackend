@@ -2,6 +2,7 @@ package com.food.pos.controller;
 
 import java.util.List;
 
+import com.food.pos.domain.BillPo;
 import com.food.pos.json.Bill;
 
 public interface BillCompent {
@@ -11,6 +12,16 @@ public interface BillCompent {
 	 * @return
 	 */
 	List<Bill> getTodayUnBuyBill();
+
+	public List<Bill> findTodayUnBuyAndNoSpeakOut(String date);
+
+	void updateIsSpeakOut(String txId, String value);
+
+	void updateIsPay(String txId, String value);
+
+	void updateSeat(String txId, String value);
+
+	void updateIsMealOut(String txId, String value);
 
 	void update2Pay(String txId);
 

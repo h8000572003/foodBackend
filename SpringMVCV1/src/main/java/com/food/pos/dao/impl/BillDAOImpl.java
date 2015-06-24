@@ -29,7 +29,6 @@ public class BillDAOImpl extends BaseDAOHibernate<BillPo> implements BillDAO {
 				Restrictions.ne("isPaid", "Y"),
 				Restrictions.ne("isMealOut", "Y")));
 		criteria.add(Restrictions.eq("orderDate", date));
-
 		return criteria.list();
 
 	}
@@ -49,6 +48,22 @@ public class BillDAOImpl extends BaseDAOHibernate<BillPo> implements BillDAO {
 
 		criteria.add(Restrictions.eq("orderDate", date));
 
+		return criteria.list();
+	}
+
+	/**
+	 * 取得[日期下]尚未叫餐帳單
+	 */
+	@Override
+	public List<BillPo> findTodayUnBuyAndNoSpeakOut(String date) {
+		Criteria criteria = getSession().createCriteria(BillPo.class);
+		criteria.addOrder(Order.asc("txId"));
+		criteria.add(Restrictions.or(
+				//
+				Restrictions.ne("isPaid", "Y"),
+				Restrictions.ne("isMealOut", "Y")));
+		criteria.add(Restrictions.eq("orderDate", date));
+		criteria.add(Restrictions.eq("isSpeakOut", "N"));
 		return criteria.list();
 	}
 }

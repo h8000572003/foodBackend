@@ -15,6 +15,9 @@ public class BillPo {
 	@Column(name = "txId")
 	private String txId;
 
+	@Column(name = "useNo")
+	private String useNo;
+
 	@Column(name = "orderDate")
 	private String orderDate;
 
@@ -39,6 +42,9 @@ public class BillPo {
 	@Column(name = "feature")
 	private String feature;
 
+	@Column(name = "isSpeakOut")
+	private String isSpeakOut = "N";
+
 	public String getTxId() {
 		return txId;
 	}
@@ -62,7 +68,6 @@ public class BillPo {
 	public void setOrderTime(String orderTime) {
 		this.orderTime = orderTime;
 	}
-
 
 	public String getOutOrIn() {
 		return outOrIn;
@@ -110,6 +115,22 @@ public class BillPo {
 
 	public void setFeature(String feature) {
 		this.feature = feature;
+	}
+
+	public String getUseNo() {
+		return useNo;
+	}
+
+	public void setUseNo(String useNo) {
+		this.useNo = useNo;
+	}
+
+	public String getIsSpeakOut() {
+		return isSpeakOut;
+	}
+
+	public void setIsSpeakOut(String isSpeakOut) {
+		this.isSpeakOut = isSpeakOut;
 	}
 
 }

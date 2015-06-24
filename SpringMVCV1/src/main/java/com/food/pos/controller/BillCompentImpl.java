@@ -44,6 +44,24 @@ public class BillCompentImpl implements BillCompent {
 	}
 
 	@Override
+	public List<Bill> findTodayUnBuyAndNoSpeakOut(String date) {
+		final List<Bill> bills = new ArrayList<Bill>();
+		List<BillPo> BillPos = billDAO.findTodayUnBuyAndNoSpeakOut(date);
+
+		for (BillPo po : BillPos) {
+			List<MealPo> meals = mealPoDAO.findMealsByBillId(po.getTxId());
+
+			final Bill bill = new Bill();
+			bill.setBill(po);
+			bill.setMeals(meals);
+			bills.add(bill);
+		}
+
+		return bills;
+	}
+
+	@Override
+	@Transactional
 	public void update2Pay(String txId) {
 		List<BillPo> billPos = billDAO.findBillByTxId(txId);
 		for (BillPo billPo : billPos) {
@@ -67,8 +85,7 @@ public class BillCompentImpl implements BillCompent {
 	@Override
 	@Transactional
 	public void deleteTotal() {
-
-		List<BillPo> bills = billDAO.findToday(AeUtils.getNowTime());
+		final List<BillPo> bills = billDAO.findToday(AeUtils.getNowTime());
 		for (BillPo po : bills) {
 			List<MealPo> meals = mealPoDAO.findMealsByBillId(po.getTxId());
 			billDAO.delete(po);
@@ -79,4 +96,49 @@ public class BillCompentImpl implements BillCompent {
 		}
 
 	}
+
+	@Override
+	@Transactional
+	public void updateIsSpeakOut(String txId, String value) {
+		final List<BillPo> bills = billDAO.findBillByTxId(txId);
+		for (BillPo bill : bills) {
+			bill.setIsSpeakOut(value);
+			billDAO.update(bill);
+		}
+
+	}
+
+	@Override
+	@Transactional
+	public void updateIsMealOut(String txId, String value) {
+		final List<BillPo> bills = billDAO.findBillByTxId(txId);
+		for (BillPo bill : bills) {
+			bill.setIsMealOut(value);
+			billDAO.update(bill);
+		}
+
+	}
+
+	@Override
+	@Transactional
+	public void updateIsPay(String txId, String value) {
+		final List<BillPo> bills = billDAO.findBillByTxId(txId);
+		for (BillPo bill : bills) {
+			bill.setIsPaid(value);
+			billDAO.update(bill);
+		}
+
+	}
+
+	@Override
+	@Transactional
+	public void updateSeat(String txId, String value) {
+		final List<BillPo> bills = billDAO.findBillByTxId(txId);
+		for (BillPo bill : bills) {
+			bill.setSeat(value);
+			billDAO.update(bill);
+		}
+
+	}
+
 }
